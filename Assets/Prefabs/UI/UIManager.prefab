@@ -1,0 +1,111 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7142222599093889691
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8867367432650903594}
+  - component: {fileID: 5559091839002190174}
+  - component: {fileID: 8110540878864559523}
+  - component: {fileID: 3059761621327600722}
+  m_Layer: 0
+  m_Name: UIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8867367432650903594
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7142222599093889691}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1208.5474, y: 414.20248, z: -9.347322}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5559091839002190174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7142222599093889691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 748927ccac2c27742840ee82c4dda058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuSide: {fileID: 0}
+  roomSide: {fileID: 0}
+  SceneAnimImage: {fileID: 0}
+  playerListParentLeft: {fileID: 0}
+  playerListParentRight: {fileID: 0}
+  playerItemList: {fileID: 8189238904031154569, guid: 3e360d020ecf5794ba5d614ce683333d,
+    type: 3}
+  pw: {fileID: 0}
+  settingsMenu: {fileID: 0}
+  chatSide: {fileID: 0}
+  console: {fileID: 0}
+  MatchFoundUI: {fileID: 0}
+  acceptOrDecline: 0
+  cancelMatchMaking: 0
+  profilSide: {fileID: 0}
+  playerObject: {fileID: 0}
+  PmCustomize: {fileID: 4140054454116567336, guid: cf11caa68bd6f1d41b33f85d61da31a0,
+    type: 3}
+  defaultColors:
+  - {r: 0, g: 0.5384617, b: 1, a: 0}
+  - {r: 1, g: 0, b: 0, a: 0}
+  - {r: 0.9293332, g: 0, b: 1, a: 0}
+  pmParam: 0
+  nickNameInputText: {fileID: 0}
+--- !u!114 &8110540878864559523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7142222599093889691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &3059761621327600722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7142222599093889691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 583da73bae87d884f8af15168c34913f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  contentLeft: {fileID: 0}
+  contentRight: {fileID: 0}
+  playerItemPrefab: {fileID: 8189238904031154569, guid: 3e360d020ecf5794ba5d614ce683333d,
+    type: 3}
+  RoomUI: {fileID: 0}
