@@ -40,8 +40,10 @@ public class GameUI : MonoBehaviour
     [Header("DeathAndKiller")]
     public GameObject contentKilledByScreen;
     public GameObject contentPrefab;
-
     public TextMeshProUGUI gameTimer;
+
+    [Header("BuyScreen")]
+    public GameObject buyScreen;
 
     private void Awake()
     {
@@ -53,6 +55,11 @@ public class GameUI : MonoBehaviour
         {
 
             GetPlayerDataOnUI();
+            if(Input.GetKeyDown(KeyCode.B))
+            {
+                OpenAndCloseBuyScreen();
+
+            }
         }
     }
 
@@ -104,5 +111,31 @@ public class GameUI : MonoBehaviour
     public void GetPlayerData(GameObject player)
     {
         this.player = player;
+    }
+
+    public void OpenAndCloseBuyScreen()
+    {
+        if (buyScreen.activeSelf == false) 
+        {
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
+            buyScreen.SetActive(true);
+        
+        }
+        else if(buyScreen.activeSelf == true )
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            buyScreen.SetActive(false);
+        }
+    }
+
+    public void GetWeaponMainBuyScreen(int main)
+    {
+        player.transform.GetChild(1).GetComponent<ActiveWeapon>().EquipMainWeapon(main);
+    }
+    public void GetWeaponSecondaryBuyScreen(int secondary)
+    {
+        player.transform.GetChild(1).GetComponent<ActiveWeapon>().EquipSecondaryWeapon(secondary);
     }
 }

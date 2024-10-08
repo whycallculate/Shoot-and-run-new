@@ -74,6 +74,8 @@ public class MenuUI : MonoBehaviour
     }
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true ;
         SceneAnimImage.GetComponent<UIAnim>().NewSceneChange(SceneAnimImage);
     }
 

@@ -31,6 +31,12 @@ public class ActiveWeapon : MonoBehaviour,IPunObservable
     public Transform weaponParent;
     public AimState activeAimState;
 
+    public int mainWeaponInt;
+    public int lastMainWeaponInt;
+
+    public int secondaryWeaponInt;
+    public int lastSecondaryWeaponInt;
+
     public Animator anim;
     public Animator rigController;
 
@@ -48,8 +54,8 @@ public class ActiveWeapon : MonoBehaviour,IPunObservable
 
             anim = GetComponent<Animator>();
 
-            EquipMainWeapon(5);
-            EquipSecondaryWeapon(1);
+            EquipMainWeapon(mainWeaponInt);
+            EquipSecondaryWeapon(secondaryWeaponInt);
         }
 
 
@@ -78,7 +84,7 @@ public class ActiveWeapon : MonoBehaviour,IPunObservable
                         StartCoroutine(mainWeaponObject.ReloadOnGame());
                     }
                 }
-                if (secondaryWeaponObject && !mainIsActive)
+                if (secondaryIsActive && !mainIsActive)
                 {
                     if (!secondaryWeaponObject.notShooting)
                     {
@@ -94,6 +100,7 @@ public class ActiveWeapon : MonoBehaviour,IPunObservable
                     }
                 }
             }
+
             GetWeaponOnHand();
 
 
@@ -169,40 +176,19 @@ public class ActiveWeapon : MonoBehaviour,IPunObservable
         }
     }
 
-    public void EquipMainWeapon(int mainWeaponIndex)
+    public void EquipMainWeapon(int mainWeaponIndex = 0)
     {
         if (pw.IsMine)
         {
-            
-            if (mainWeaponIndex == 0 && mainWeapon[mainWeapon.Length - 1].gameObject.activeSelf == true)
-            {
-                mainWeapon[mainWeapon.Length - 1].gameObject.SetActive(false);
-                mainWeapon[mainWeaponIndex].gameObject.SetActive(true);
-            }
-            else if(mainWeaponIndex == 0)
-            {
-                mainWeapon[mainWeaponIndex].gameObject.SetActive(true);
-            }
-            
-                 
-            
-            if (mainWeaponIndex < mainWeapon.Length && mainWeaponIndex != 0)
-            {
-                mainWeapon[mainWeaponIndex - 1].gameObject.SetActive(false);
-                mainWeapon[mainWeaponIndex].gameObject.SetActive(true);
-            }
-            if (mainWeaponIndex == mainWeapon.Length)
-            {
-                mainWeapon[mainWeaponIndex - 1].gameObject.SetActive(false);
-                mainWeaponIndex = 0;
-                setMainIndex = 0;
-                mainWeapon[mainWeaponIndex].gameObject.SetActive(true);
 
-            }
+            mainWeapon[lastMainWeaponInt].gameObject.SetActive(false);
+            mainWeapon[mainWeaponIndex].gameObject.SetActive(true);
+
             mainWeaponObject = mainWeapon[mainWeaponIndex];
             setMainIndex++;
             rigController.Play("equip" + mainWeapon[mainWeaponIndex].weaponName);
-            pw.RPC("EquipMainWeaponOtherPlayer",RpcTarget.OthersBuffered, mainWeaponIndex);
+            pw.RPC("EquipMainWeaponOtherPlayer",RpcTarget.OthersBuffered, mainWeaponIndex, lastMainWeaponInt);
+            lastMainWeaponInt = mainWeaponIndex;
         }
 
 
@@ -210,103 +196,45 @@ public class ActiveWeapon : MonoBehaviour,IPunObservable
 
     }
     [PunRPC]
-    public void EquipMainWeaponOtherPlayer(int mainWeaponIndex)
+    public void EquipMainWeaponOtherPlayer(int mainWeaponIndex , int lastindex)
     {
         if (!pw.IsMine)
         {
-            if (mainWeaponIndex == 0 && mainWeapon[mainWeapon.Length - 1].gameObject.activeSelf == true)
-            {
-                mainWeapon[mainWeapon.Length - 1].gameObject.SetActive(false);
-                mainWeapon[mainWeaponIndex].gameObject.SetActive(true);
+            mainWeapon[lastindex].gameObject.SetActive(false);
+            mainWeapon[mainWeaponIndex].gameObject.SetActive(true);
 
-            }
-            else if (mainWeaponIndex == 0)
-            {
-                mainWeapon[mainWeaponIndex].gameObject.SetActive(true);
-            }
-            if (mainWeaponIndex < mainWeapon.Length && mainWeaponIndex != 0)
-            {
-                mainWeapon[mainWeaponIndex - 1].gameObject.SetActive(false);
-                mainWeapon[mainWeaponIndex].gameObject.SetActive(true);
-
-            }
-            if (mainWeaponIndex == mainWeapon.Length)
-            {
-                mainWeapon[mainWeaponIndex - 1].gameObject.SetActive(false);
-                mainWeaponIndex = 0;
-                mainWeapon[mainWeaponIndex].gameObject.SetActive(true);
-
-            }
             rigController.Play("equip" + mainWeapon[mainWeaponIndex].weaponName);
         }
 
 
 
     }
-    public void EquipSecondaryWeapon(int secondaryWeaponIndex)
+    public void EquipSecondaryWeapon(int secondaryWeaponIndex = 0)
     {
         if (pw.IsMine)
         {
 
-            if (secondaryWeaponIndex == 0 && secondaryWeapon[secondaryWeapon.Length - 1].gameObject.activeSelf == true)
-            {
-                secondaryWeapon[mainWeapon.Length - 1].gameObject.SetActive(false);
-                secondaryWeapon[secondaryWeaponIndex].gameObject.SetActive(true);
-            }
-            else if (secondaryWeaponIndex == 0)
-            {
-                secondaryWeapon[secondaryWeaponIndex].gameObject.SetActive(true);
-            }
-            if (secondaryWeaponIndex < mainWeapon.Length && secondaryWeaponIndex != 0)
-            {
-                secondaryWeapon[secondaryWeaponIndex - 1].gameObject.SetActive(false);
-                secondaryWeapon[secondaryWeaponIndex].gameObject.SetActive(true);
-            }
-            if (secondaryWeaponIndex == secondaryWeapon.Length)
-            {
-                secondaryWeapon[secondaryWeaponIndex - 1].gameObject.SetActive(false);
-                secondaryWeaponIndex = 0;
-                setSecondaryIndex = 0;
-
-                secondaryWeapon[secondaryWeaponIndex].gameObject.SetActive(true);
-
-            }
+            secondaryWeapon[lastSecondaryWeaponInt].gameObject.SetActive(false);
+            secondaryWeapon[secondaryWeaponIndex].gameObject.SetActive(true);
 
             secondaryWeaponObject = secondaryWeapon[secondaryWeaponIndex];
             setSecondaryIndex++;
             rigController.Play("equip" + secondaryWeapon[secondaryWeaponIndex].weaponName);
             
-            pw.RPC("EquipSecondaryWeaponOtherPlayer",RpcTarget.OthersBuffered, secondaryWeaponIndex);
+            pw.RPC("EquipSecondaryWeaponOtherPlayer",RpcTarget.OthersBuffered, secondaryWeaponIndex, lastSecondaryWeaponInt);
+
         }
 
     }
     [PunRPC]
-    public void EquipSecondaryWeaponOtherPlayer(int secondaryWeaponIndex)
+    public void EquipSecondaryWeaponOtherPlayer(int secondaryWeaponIndex,int lastIndex)
 
     {
         if (!pw.IsMine)
         {
-            if (secondaryWeaponIndex == 0 && secondaryWeapon[secondaryWeapon.Length - 1].gameObject.activeSelf == true)
-            {
-                secondaryWeapon[secondaryWeapon.Length - 1].gameObject.SetActive(false);
-                secondaryWeapon[secondaryWeaponIndex].gameObject.SetActive(true);
-            }
-            else if (secondaryWeaponIndex == 0)
-            {
-                secondaryWeapon[secondaryWeaponIndex].gameObject.SetActive(true);
-            }
-            if (secondaryWeaponIndex < secondaryWeapon.Length && secondaryWeaponIndex != 0)
-            {
-                secondaryWeapon[secondaryWeaponIndex - 1].gameObject.SetActive(false);
-                secondaryWeapon[secondaryWeaponIndex].gameObject.SetActive(true);
-            }
-            if (secondaryWeaponIndex == secondaryWeapon.Length)
-            {
-                secondaryWeapon[secondaryWeaponIndex - 1].gameObject.SetActive(false);
-                secondaryWeaponIndex = 0;
-                secondaryWeapon[secondaryWeaponIndex].gameObject.SetActive(true);
+            secondaryWeapon[lastIndex].gameObject.SetActive(false);
+            secondaryWeapon[secondaryWeaponIndex].gameObject.SetActive(true);
 
-            }
             rigController.Play("equip" + secondaryWeapon[secondaryWeaponIndex].weaponName);
         }
     }
