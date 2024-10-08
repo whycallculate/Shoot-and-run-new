@@ -36,6 +36,8 @@ public class GameUI : MonoBehaviour
     public GameObject gameElements;
     public GameObject timer;
     public GameObject crosshair;
+    public GameObject settingMenu;
+    public GameObject menuEsc;
 
     [Header("DeathAndKiller")]
     public GameObject contentKilledByScreen;
@@ -55,14 +57,35 @@ public class GameUI : MonoBehaviour
         {
 
             GetPlayerDataOnUI();
-            if(Input.GetKeyDown(KeyCode.B))
-            {
-                OpenAndCloseBuyScreen();
-
-            }
+            GetInputUI();
         }
     }
+    public void GetInputUI()
+    {
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            OpenAndCloseBuyScreen();
 
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            EscMenu();
+        }
+    }
+    public void EscMenu()
+    {
+        if(menuEsc.activeSelf == true)
+        {
+            settingMenu.SetActive(false);
+            menuEsc.SetActive(false);
+
+        }
+        else
+        {
+            menuEsc.SetActive(true);
+
+        }
+    }
     public void GameWaitingPlayers()
     {
         waitingPlayer.SetActive(true);
@@ -129,6 +152,25 @@ public class GameUI : MonoBehaviour
             buyScreen.SetActive(false);
         }
     }
+
+    public void ExitGame()
+    {
+        PhotonNetwork.LeaveRoom();
+        PhotonNetwork.LoadLevel(1);
+    }
+    public void OpenSettings()
+    {
+
+        if(settingMenu.activeSelf == false)
+        {
+            settingMenu.SetActive(true);
+        }
+        else if(settingMenu.activeSelf == true)
+        {
+            settingMenu.SetActive(false);
+        }
+    }
+    
 
     public void GetWeaponMainBuyScreen(int main)
     {
